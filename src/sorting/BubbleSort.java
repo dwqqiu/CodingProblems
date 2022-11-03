@@ -13,13 +13,17 @@ public class BubbleSort {
         for (int i = 0; i < given.length; i++) {
             for (int j = 0; j < given.length-1; j++) {
                 if (given[j] > given[j+1]) {
-                    int tmp = given[j];
-                    given[j] = given[j+1];
-                    given[j+1] = tmp;
+                    swap(given, j, j+1);
                 }
             }
         }
         System.out.println(Arrays.toString(given));
+    }
+
+    static void swap(int[] array, int a, int b) {
+        int tmp = array[a];
+        array[a] = array[b];
+        array[b] = tmp;
     }
 
     // time O(n^2) - bubble sort runs in O(n^2) even on sorted array

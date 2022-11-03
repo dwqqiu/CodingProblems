@@ -5,11 +5,12 @@ import utils.NumberGenerator;
 import java.util.Arrays;
 
 public class SelectionSort {
-    // find the lowest and swap with the beginning element
+    // as the name suggest, picks either the highest or the lowest value and swaps with the beginning of the list
     // the 2nd for loop is the main logic searching for the lowest value
+    // each time it founds a value, the pivot moves 1 step forward
     public static void main(String[] args) {
-        int[] given = NumberGenerator.getNElementsOfBase(100, 100);
-        //System.out.println(Arrays.toString(given));
+        int[] given = NumberGenerator.getNUniqueElementsOfBase(100, 100);
+        System.out.println(Arrays.toString(given));
         for (int i = 0; i < given.length-1; i++) {
             int min_index = i; // pivot
             for (int j = i+1; j < given.length; j++) {
@@ -17,11 +18,15 @@ public class SelectionSort {
                     min_index = j;
             }
             // swap
-            int tmp = given[i];
-            given[i] = given[min_index];
-            given[min_index] = tmp;
+            swap(given, i, min_index);
         }
         System.out.println(Arrays.toString(given));
+    }
+
+    static void swap(int[] array, int a, int b) {
+        int tmp = array[a];
+        array[a] = array[b];
+        array[b] = tmp;
     }
 
     // time O(n^2)

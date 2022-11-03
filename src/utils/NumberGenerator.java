@@ -1,5 +1,10 @@
 package utils;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class NumberGenerator {
     /**
      * Generates a random number with base 10 values
@@ -15,5 +20,14 @@ public class NumberGenerator {
             nums[i] = (int) (Math.random() * base + 1);
         }
         return nums;
+    }
+
+    public static int[] getNUniqueElementsOfBase(int n, int base) {
+        List<Integer> distinct = new ArrayList<>();
+        while (distinct.size() != n) {
+            int num = (int) (Math.random() * base + 1);
+            if (!distinct.contains(num)) distinct.add(num);
+        }
+        return distinct.stream().mapToInt(i -> i).toArray();
     }
 }
