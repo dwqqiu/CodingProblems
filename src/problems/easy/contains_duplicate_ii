@@ -1,0 +1,45 @@
+// https://leetcode.com/problems/contains-duplicate-ii/
+
+// Initial attempt which did not work, read the discussions and found better
+// approaches to this question
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        HashSet<Integer> distincts = new HashSet<>();
+        for (int i=0; i<nums.length; i++) {
+            if (!distincts.add(nums[i]) && i <= k)
+                return true;
+        }
+        return false;
+    }
+}
+
+// 2nd attempt with HashMap knowing that maps does not allow duplication of keys
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i=0; i<nums.length; i++) {
+            if (map.containsKey(nums[i]))
+                if (i - map.get(nums[i]) <= k)
+                    return true;
+            map.put(nums[i], i);
+        }
+        return false;
+    }
+}
+
+// Realised that reading the documentation is very important
+// HashMap does not allows duplication of keys, same behaviour as every other
+// map implementations. When a collision occurs, the previous stored value of the
+// specified key will be returned instead.
+class Solution {
+    public boolean containsNearbyDuplicate(int[] nums, int k) {
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i=0; i<nums.length; i++) {
+            Integer prev = map.put(nums[i], i);
+            if (prev != null && i - prev <= k)
+                return true;
+        }
+        return false;
+    }
+}
+

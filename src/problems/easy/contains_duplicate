@@ -1,0 +1,31 @@
+// https://leetcode.com/problems/contains-duplicate/
+
+// Naive approach would be sort the array first followed by checking each of the
+// element and the next element in the array.
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        Arrays.sort(nums);
+        for (int i=0; i<nums.length-1; i++) {
+            if (nums[i] == nums[i+1])
+                return true;
+        }
+        return false;
+    }
+}
+
+// A more effective way is to use an existing data structure, HashSet, as Sets
+// itself negates duplicates values, each set only contains distinct elements.
+// However sets are not ordered by default but ordering can be applied as well.
+class Solution {
+    public boolean containsDuplicate(int[] nums) {
+        HashSet<Integer> distincts = new HashSet<>();
+        for (int i=0; i<nums.length; i++) {
+            if (!distincts.add(nums[i]))
+                return true;
+        }
+        return false;
+    }
+}
+
+// References
+// https://docs.oracle.com/javase/7/docs/api/java/util/HashSet.html

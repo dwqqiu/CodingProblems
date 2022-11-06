@@ -1,0 +1,37 @@
+// https://leetcode.com/problems/two-sum/
+
+O(n^2) time
+// Simplest solution with brute force method
+// Main idea here is remb the 2nd loop needs to start from the next element of i
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        for (int i=0; i<nums.length; i++) {
+            for (int j=i+1; j<nums.length; j++) {
+                if (nums[i] + nums[j] == target)
+                    return new int[] {i, j};
+            }
+        }
+        return null;
+    }
+}
+
+O(n) time
+// A more efficient way is to interate the array just with one loop to achieve
+// O(n) time, and calculating the complement instead of checking each combination
+// in the array itself.
+class Solution {
+    public int[] twoSum(int[] nums, int target) {
+        Map<Integer, Integer> complements = new HashMap<Integer, Integer>();
+        for (int i=0; i<nums.length; i++) {
+            if (complements.containsKey(nums[i])) {
+                return new int[] {i, complements.get(nums[i])};
+            }
+            int key = target - nums[i];
+            complements.put(key, i);
+        }
+        return null;
+    }
+}
+
+// References
+// https://docs.oracle.com/javase/8/docs/api/java/util/HashMap.html

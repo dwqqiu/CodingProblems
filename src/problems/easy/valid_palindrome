@@ -1,0 +1,61 @@
+// https://leetcode.com/problems/valid-palindrome/
+
+// https://docs.oracle.com/javase/7/docs/api/java/lang/Character.html
+// https://docs.oracle.com/javase/7/docs/api/java/lang/String.html
+// https://www.digitalocean.com/community/tutorials/string-vs-stringbuffer-vs-stringbuilder
+
+// First attempt without looking at the solutions and optimization
+// Using StringBuilder is faster but not thread safe, use StringBuffer for multithreading instead
+class Solution {
+    public boolean isPalindrome(String s) {
+        List<String> letters = new ArrayList();
+        for (char c : s.toCharArray()) {
+            if (Character.isLetterOrDigit(c)) {
+                letters.add(Character.toString(Character.toLowerCase(c)));
+            }
+        }
+        String left = String.join("", letters);
+        String right = new StringBuilder(left).reverse().toString();
+        if (left.equals(right)) return true;
+        else return false;
+    }
+}
+
+// Second attempt after looking at discussions on how to approach this question
+// A faster appraoch is to use 2 pointers and iterate to the center for comparison
+class Solution {
+    public boolean isPalindrome(String s) {
+        int left = 0, right = s.length()-1;
+        s = s.toLowerCase();
+        while (left < right) {
+            while (!Character.isLetterOrDigit(s.charAt(left)) && left < right) {
+                left++;
+            }
+            while (!Character.isLetterOrDigit(s.charAt(right)) && right > left) {
+                right--;
+            }
+            if (s.charAt(left) != s.charAt(right)) return false;
+            left++;
+            right--;
+        }
+        return true;
+    }
+}
+
+// Third attempt after reading up discussion and solutions, something to compare
+// with. Using for loop and delcaring the pointers at one go.
+class Solution {
+    public boolean isPalindrome(String s) {
+        for (int i=0, j=s.length()-1; i < j; i++, j--) {
+            while (!Character.isLetterOrDigit(s.charAt(i)) && i < j) {
+                i++;
+            }
+            while (!Character.isLetterOrDigit(s.charAt(j)) && j > i) {
+                j--;
+            }
+            if (Character.toLowerCase(s.charAt(i)) != Character.toLowerCase(s.charAt(j))) 
+                return false;
+        }
+        return true;
+    }
+}
