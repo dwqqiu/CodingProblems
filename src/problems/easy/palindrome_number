@@ -1,0 +1,17 @@
+// https://leetcode.com/problems/palindrome-number
+
+class Solution {
+    public boolean isPalindrome(int x) {
+        if (x == 0) return true;
+        if (x < 0 || x % 10 == 0) return false;
+        int reversed_val = 0;
+        while (x > reversed_val) {
+            int pop = x % 10;
+            x /= 10; // same as x = x / 10
+            reversed_val = (reversed_val * 10) + pop;
+        }
+        // 2nd condition is for supporting odd number comparisons e.g. 12321
+        if (x == reversed_val || x == reversed_val / 10) return true;
+        return false;
+    }
+}
